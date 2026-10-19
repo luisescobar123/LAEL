@@ -1,0 +1,176 @@
+LAEL | MANUAL DEL PROTOTIPO
+Propiedad de Luis Ángel Escobar Leiva · Marca LAEL
+Versión de prueba · Uso local únicamente
+
+1. PROPÓSITO Y LÍMITES
+Este manual describe el prototipo local disponible en index.html y server.py.
+Permite probar registros de inventario, clientes, proveedores, usuarios y
+ventas internas demostrativas. No es una plataforma comercial ni un sistema
+de facturación electrónica autorizado.
+
+No introduzca información personal, financiera, tributaria ni datos reales
+de clientes o empleados. Los comprobantes de la demo no tienen validez fiscal.
+La base SQLite se guarda localmente junto a la aplicación; no hay copias de
+seguridad administradas ni recuperación de datos garantizada.
+
+2. INICIAR Y ENTRAR
+Siga los pasos de LEEME.txt para iniciar el servidor y abrir la aplicación.
+El administrador inicia con la cuenta privada indicada en LEEME.txt. Para
+empleados se usa el modo "Empleado · contraseña compartida": el administrador
+configura una clave única y los trabajadores escriben esa clave y su nombre.
+La clave de empleados no se guarda en este manual; el administrador debe
+compartirla por un canal privado. Sin clave configurada, solo el administrador
+puede entrar para definirla. No publique el servidor de demo.
+
+Para una prueba dentro del mismo Wi-Fi, inicie el servidor con
+INICIAR_LAEL_WIFI.bat y deje abierta su ventana. Desde otro dispositivo de
+esa misma red visite la dirección IPv4 de la computadora servidor seguida
+por :8080; la dirección Wi-Fi actual de esta instalación es
+http://10.248.205.11:8080. Si cambia la IP o la subred, actualice los rangos
+permitidos en Usuarios > Control de red y la regla de firewall de Windows.
+Esta prueba no publica LAEL en Internet; una red de invitados o el aislamiento
+de clientes del router puede impedir la comunicación entre dispositivos.
+
+En un navegador nuevo, un inicio válido registra ese perfil como un equipo y
+ocupa un cupo. La identidad aleatoria queda en el almacenamiento del navegador.
+Si la demo ha alcanzado el límite, el mensaje de acceso indica que debe contactar
+al administrador. Todos los accesos correctos registran fecha y hora local,
+nombre escrito y equipo en el historial de Usuarios. Como los empleados
+comparten la clave, el nombre es autodeclarado y no demuestra la identidad.
+
+3. PANEL
+El panel resume ventas de prueba, productos, clientes y alertas de inventario.
+La gráfica muestra solo ventas registradas durante los últimos siete días y
+no realiza predicciones, recomendaciones ni reportes contables.
+Los accesos rápidos llevan a ventas demo, inventario y clientes.
+Las cifras de la vista pública de LAEL son ilustrativas; solo el panel tras
+iniciar sesión muestra los datos guardados en la base local.
+
+4. INVENTARIO, CLIENTES Y PROVEEDORES
+- Use el formulario para crear un registro y Guardar para almacenarlo.
+- Seleccione Editar para cargar un registro en el formulario; guarde los
+  cambios para reemplazarlo.
+- Use Limpiar para vaciar el formulario, o Buscar para filtrar la tabla.
+- Exportar CSV descarga los registros que muestra la tabla completa.
+- La eliminación está restringida al usuario administrador y pide confirmación.
+- En inventario, el sistema resalta productos cuyo stock llega al mínimo.
+
+5. VENTAS DE DEMOSTRACIÓN
+- Seleccione un cliente de prueba o consumidor final.
+- Agregue uno o más productos disponibles e indique una cantidad válida.
+- El sistema calcula un total demostrativo y descuenta existencias al emitir.
+- Abra Ver comprobante demo para consultar o imprimir el registro.
+
+Los registros de venta son internos. El impuesto mostrado es una simulación
+del prototipo; no constituye cálculo fiscal ni reemplaza una factura válida.
+Las operaciones emitidas no cuentan con un flujo de anulación fiscal.
+
+6. USUARIOS, CONTRASEÑA COMPARTIDA Y CUPO DE EQUIPOS
+El administrador conserva su cuenta privada. Para el personal configura una
+sola clave compartida (mínimo 8 caracteres) en Usuarios > Contraseña única
+del personal. Una contraseña corta compartida solo debe usarse en la demo;
+no protege adecuadamente información real. El servidor guarda una derivación
+con sal; no muestra la clave almacenada. El administrador puede reemplazarla,
+lo que invalida las sesiones de empleados activas. Entréguela por un canal
+privado.
+
+Se necesita al menos una cuenta interna con rol empleado para dar el rol de
+acceso limitado a la clave compartida. El nombre que se escribe en el acceso
+se guarda en el historial, pero no se comprueba contra una identidad real.
+El administrador puede crear cuentas privadas adicionales; no puede borrar
+su propia cuenta ni la última cuenta interna de empleado.
+
+La pestaña Asistencia es exclusiva de administradores. Actualiza cada
+10 segundos y marca “En línea” cuando el navegador del empleado informó
+actividad durante los últimos 45 segundos. Muestra hora de inicio, última
+actividad, duración aproximada, equipo e IP observada. El botón de PDF
+completo descarga todos los registros disponibles; los botones por nombre
+descargan las sesiones asociadas al nombre autodeclarado. Los reportes usan
+hora local del servidor. La demo conserva el historial en SQLite sin borrado
+automático y limita la lista visible a los 5,000 registros más recientes.
+El registro de duración se inicia con las sesiones creadas después de esta
+actualización; los accesos anteriores permanecen en el historial de accesos,
+pero no contienen duración recuperable.
+
+Para cerrar correctamente una sesión, el empleado debe pulsar Salir. Si se
+cierra el navegador o se pierde la conexión sin salir, el registro permanece
+“Inactivo” y puede cerrarse al vencer la sesión tras 30 minutos sin actividad.
+El tiempo mostrado y exportado es aproximado; un reinicio inesperado del
+servidor también puede interrumpir el cálculo. El nombre y la contraseña
+compartida no acreditan quién fue la persona. La pestaña no rastrea ubicación
+ni movimientos fuera de la aplicación.
+
+En la sección Equipos autorizados puede revisar el límite, los perfiles activos
+y su última actividad. El límite inicial es 40 perfiles de navegador en total,
+incluyendo los administradores. Puede elevar el límite, pero no reducirlo por
+debajo de los equipos activos. Revocar un perfil cierra sus sesiones y libera
+un cupo. El equipo administrador desde el cual se está conectado no se puede
+revocar; use otro administrador para revocarlo.
+
+El Historial de accesos muestra hasta 500 inicios correctos, con fecha y hora
+local del servidor, IP observada, nombre declarado y etiqueta del equipo. Los
+intentos fallidos no se incluyen. La IP reciente también aparece en Equipos
+autorizados. El servidor no confía en cabeceras de proxy reenviadas; si se
+instala detrás de un proxy, la IP registrada puede ser la del proxy.
+
+En Usuarios > Control de red del local, el administrador puede registrar
+direcciones IP o redes en notación CIDR (una por línea). Una lista vacía solo
+registra IP y permite conexiones desde cualquier red; al guardar rangos, todas
+las conexiones de inicio de sesión y de la aplicación quedan limitadas a esas
+redes. Incluya la IP actual que muestra el panel: el sistema rechaza una lista
+que excluiría al administrador conectado. Antes de activarlo, confirme el
+rango de la red Wi-Fi/LAN con quien administra el router; un rango incorrecto
+puede bloquear a los usuarios. Para quitar la restricción, un administrador
+debe volver a conectarse desde una IP autorizada y guardar una lista vacía.
+
+La IP de origen ayuda a aplicar una regla de red, pero no confirma la ubicación
+física ni la identidad de la persona. VPN, proxies, NAT y redes móviles pueden
+alterar o compartir la IP. No se realiza rastreo GPS. Las IP se conservan en
+la base local sin caducidad automática en esta demo; informe al personal y
+defina plazos de retención y acceso en una política de privacidad revisada.
+No es un sistema de auditoría resistente a manipulación.
+
+El navegador web no puede verificar de forma infalible el hardware. Borrar los
+datos locales o usar otro perfil/navegador puede registrarse como equipo nuevo.
+Este control es una limitación de uso de la demo, no una licencia resistente a
+manipulación ni un control de seguridad empresarial.
+
+7. TEMA Y AYUDA
+El botón Tema claro/oscuro cambia la apariencia y guarda la preferencia en el
+navegador actual. La selección no se sincroniza con otros equipos.
+El botón Ayuda muestra instrucciones locales para la sección abierta y accesos
+a otros módulos. No es un asistente de IA y no envía consultas a terceros.
+
+8. POLÍTICAS Y PRIVACIDAD
+La portada y el botón Políticas muestran borradores de privacidad, términos
+de prueba y almacenamiento/red. POLITICAS_LAEL_BORRADOR.txt contiene el texto
+completo y una lista de temas pendientes. Los borradores describen algunas
+señales que usa la demo, incluidas las IP y el almacenamiento local, pero no
+son asesoría, no han sido aprobados ni certifican cumplimiento.
+Antes de producción, completar responsable legal, NIT, domicilio, contacto,
+propósito y base jurídica, derechos, proveedores, seguridad y plazos de
+retención/eliminación; validar normativa vigente y el servicio con un abogado
+de El Salvador. No publicar datos de contacto inventados ni afirmar que LAEL
+está registrada como marca sin verificarlo.
+
+9. SESIÓN
+La sesión de demostración expira tras un periodo de inactividad. Use Salir al
+terminar. Recursos e Información abren ventanas del prototipo; los enlaces de
+terceros pueden cambiar y no constituyen asesoría legal ni fiscal.
+
+10. FUNCIONES AÚN NO DISPONIBLES
+No están implementados CRM/campañas, proyectos/tareas, RR. HH., nómina,
+bancos/pasarelas, alertas de correo o WhatsApp, contabilidad integrada,
+multimoneda, multilenguaje, MFA, auditoría completa, backups en nube,
+personalización de logo por empresa, suscripciones, soporte 24/7, ISO 27001
+ni GDPR. Consulta HOJA_DE_RUTA_LAEL.txt; la lista no implica compromiso de
+entrega, certificación o cumplimiento.
+
+11. DOCUMENTACIÓN COMPLEMENTARIA
+LEEME.txt: instalación local y límites del prototipo.
+DOCUMENTACION_COMPLETA_LAEL.md: referencia del sitio, módulos, API, datos,
+arquitectura, acceso y solución de problemas.
+HOJA_DE_RUTA_LAEL.txt: brechas, arquitectura propuesta y preparación comercial.
+POLITICAS_LAEL_BORRADOR.txt: borradores legales y lista de revisión previa a producción.
+
+LAEL · Sistema Empresarial · Documento de prototipo

@@ -1,0 +1,117 @@
+LAEL | SISTEMA EMPRESARIAL
+Propiedad de Luis Angel Escobar Leiva
+PROTOTIPO LOCAL DE PRUEBA - NO ES UN SERVICIO COMERCIAL
+
+INICIO RAPIDO
+1. Instale Python 3.8 o superior.
+2. Abra PowerShell o Terminal en esta carpeta.
+3. Ejecute: python server.py
+4. Abra http://127.0.0.1:8080 en su navegador.
+   Para detener el servidor, presione Ctrl+C en la terminal.
+
+PRUEBA DESDE OTROS DISPOSITIVOS POR WI-FI
+- Conecte la computadora servidor y los dispositivos de prueba a la misma
+  red Wi-Fi privada. En esta computadora, abra INICIAR_LAEL_WIFI.bat y deje
+  abierta la ventana mientras usa la aplicación. Si LAEL ya está abierto y
+  responde, no inicie una segunda instancia.
+- En los otros dispositivos abra http://10.248.205.11:8080. Esta es la
+  dirección Wi-Fi actual de esta computadora y puede cambiar. Si cambia,
+  consulte "Dirección IPv4" de la interfaz Wi-Fi con ipconfig y use la nueva
+  dirección con :8080.
+- Para esta prueba, el control de red de LAEL permite 127.0.0.1/32 y
+  10.248.205.0/24; el firewall de Windows limita TCP/8080 a esa subred.
+  Si cambia la red, un administrador debe actualizar tanto los rangos en
+  Usuarios > Control de red como la regla de firewall.
+- Si no abre desde el otro dispositivo, compruebe que ambos estén en la misma
+  red (no una red de invitados), que la computadora servidor siga encendida
+  y que el router no tenga aislamiento entre dispositivos. No es un enlace
+  público de Internet ni funciona fuera de esta red.
+
+CUENTAS LOCALES DE DEMOSTRACION
+Administrador: admin / Admin123!
+La cuenta admin es SOLO para pruebas locales. Cambie esa clave antes de
+cualquier prueba con otros usuarios; nunca exponga el servidor a Internet.
+Para probar como empleado, use "Empleado · contraseña compartida" y la clave
+que el administrador haya configurado y comunicado por un canal privado.
+
+ACCESO DEL PERSONAL
+- Todos los empleados pueden usar una unica contraseña compartida configurada
+  por el administrador en Usuarios > Contraseña única del personal. El mínimo
+  permitido es 8 caracteres; una clave corta compartida es solo para la demo.
+- Cada empleado escribe su nombre y elige "Empleado · contraseña compartida".
+- El administrador conserva su usuario y contraseña privados.
+- La clave compartida no se publica en este archivo; compártala por un canal
+  privado. El nombre de acceso es autodeclarado, no verifica identidad.
+- Sin clave compartida configurada, el administrador debe entrar y definirla.
+- Cambiar la clave cierra las sesiones de empleados; deberán volver a entrar.
+
+SUPERVISIÓN DEL PERSONAL (DEMO)
+- La cuenta administradora incluye la pestaña Asistencia, que actualiza cada
+  10 segundos y muestra sesiones que comunicaron actividad en los últimos
+  45 segundos, hora de inicio, última actividad y duración aproximada.
+- El administrador puede descargar un PDF con todos los registros o un PDF
+  filtrado por cada nombre declarado. El PDF se genera en el servidor usando
+  el historial de sesiones guardado en la base local.
+- El registro de duración comienza con los accesos iniciados después de esta
+  actualización; las entradas históricas de acceso no permiten reconstruir
+  cuánto duró una sesión anterior.
+- Los empleados deben pulsar Salir al terminar para cerrar su registro. Si
+  cierran la ventana o pierden conexión, la sesión puede figurar inactiva
+  hasta expirar tras 30 minutos sin actividad; el tiempo es aproximado.
+- La contraseña compartida y el nombre autodeclarado no verifican identidad.
+  Los datos de actividad son información laboral/personal: informe al equipo,
+  limite los reportes a administradores autorizados y defina retención con
+  asesoría antes de cualquier uso real. No use esta demo para datos reales.
+
+CONTROL DE EQUIPOS (DEMO)
+- Se permiten 40 navegadores registrados en total, incluyendo administradores.
+- El cupo se registra al iniciar sesion correctamente desde un nuevo navegador.
+- El administrador puede ampliar el limite o revocar un equipo en Usuarios.
+- Revocar desconecta ese equipo y libera un cupo. Para revocar el equipo
+  administrador actual, inicie sesion desde otro equipo administrador.
+- El control identifica un perfil del navegador, no verifica el hardware.
+  Borrar el almacenamiento del navegador puede crear otra identidad de prueba.
+- Para compartirlo con 40 computadoras se requiere un servidor central de red.
+  No es seguro publicar esta demo local en Internet ni usar datos reales.
+- El historial de Usuarios registra fecha y hora local de inicios de sesión
+  correctos, IP que observa el servidor, nombre declarado y equipo; como la
+  clave es compartida, no acredita qué persona entró.
+- El administrador puede configurar rangos IP/CIDR en Usuarios > Control de
+  red del local. Al configurarlos, solo esas IP pueden iniciar sesión y usar
+  la aplicación; vaciar la lista desactiva la restricción, pero no el registro.
+- El valor detectado depende de la red: detrás de un router puede ser una IP
+  privada, y en hosting/proxy puede ser la dirección del proxy. No se usan
+  cabeceras reenviadas no verificadas. Averigüe el rango CIDR de la red local
+  con quien administra el router; no active un rango desconocido porque puede
+  bloquear el acceso. Una IP no prueba presencia física ni identidad; VPN,
+  proxy, red móvil y NAT pueden cambiarla o compartirla.
+- Las IP son datos de conexión potencialmente identificables. Informe a los
+  empleados sobre el registro y defina propósito, acceso y retención conforme
+  a una política revisada; la demo no establece una retención automática.
+- La sección Políticas presenta borradores informativos, no políticas legales
+  aprobadas. Complete los datos marcados como pendientes y solicite revisión
+  profesional salvadoreña antes de ofrecer o vender el producto.
+
+ALCANCE ACTUAL
+- Inventario, clientes y proveedores en una base local SQLite.
+- Usuarios locales con roles basicos.
+- Resumen de actividad y ventas internas de demostracion.
+- Exportacion de listados a CSV.
+- Comprobante imprimible sin validez fiscal.
+
+LIMITACIONES IMPORTANTES
+- No es facturacion electronica autorizada por el Ministerio de Hacienda.
+- No incluye empresas/sucursales aisladas, suscripciones ni pagos.
+- No esta preparado ni autorizado para procesar datos reales o prestar
+  un servicio SaaS de produccion.
+- No se han validado requisitos fiscales, privacidad ni otras obligaciones.
+- No anuncie LAEL como marca registrada hasta verificar oficialmente
+  el estado y la titularidad del registro.
+
+ANTES DE PUBLICAR O VENDER
+Consulte DOCUMENTACION_COMPLETA_LAEL.md para la guia del sitio, modulos, API,
+datos y solucion de problemas. Lea tambien MANUAL_LAEL.txt,
+POLITICAS_LAEL_BORRADOR.txt y HOJA_DE_RUTA_LAEL.txt. No cambie HOST a una
+direccion publica ni suba esta demo a Internet con las cuentas iniciales.
+Se requiere una arquitectura de produccion, seguridad revisada,
+asesoria legal/fiscal y pruebas antes de ofrecer el software.

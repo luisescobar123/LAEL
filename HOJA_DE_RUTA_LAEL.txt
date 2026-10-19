@@ -1,0 +1,238 @@
+LAEL | HOJA DE RUTA Y ARQUITECTURA PROPUESTA
+Propiedad de Luis Ángel Escobar Leiva · Marca LAEL
+Documento de trabajo · No constituye certificación legal ni de seguridad
+
+RESUMEN EJECUTIVO
+El código actual es un prototipo funcional local de una sola instalación:
+una página HTML/JavaScript, una API pequeña en Python y una base SQLite.
+No es todavía un SaaS, no factura electrónicamente y no aísla empresas.
+Esta hoja separa lo que existe de lo que se necesita para venderlo con
+responsabilidad. Las leyes y trámites aplicables deben confirmarse con
+profesionales salvadoreños y las autoridades competentes.
+
+ESTADO VERIFICADO EN EL PROTOTIPO
+Disponible:
+- Inicio de sesión local, roles básicos y gestión de usuarios.
+- Límite de 40 perfiles de navegador registrados con administración de cupos
+  para la demo; no es identificación infalible del hardware.
+- Acceso de empleados con una contraseña compartida configurable por el
+  administrador; el nombre es autodeclarado. Los administradores conservan
+  autenticación individual.
+- Historial local de inicios exitosos con fecha/hora, nombre declarado y
+  etiqueta de navegador; no es una bitácora inmutable.
+- Registro de IP observada del cliente en equipos e historial, con restricción
+  opcional por allowlist de direcciones/rangos CIDR configurable por admin.
+  No verifica ubicación física; no confía en cabeceras X-Forwarded-For.
+- CRUD de inventario, clientes y proveedores.
+- Resumen básico de ventas, control simple de existencias y exportación CSV.
+- Gráfica de historial de ventas de 7 días; no es predicción ni BI avanzado.
+- Tema claro/oscuro guardado en el navegador y ayuda contextual estática;
+  no son personalización por empresa ni un asistente de IA.
+- Registro interno de ventas con impresión de un comprobante de prueba.
+- Interfaz web adaptable; almacenamiento en SQLite en el equipo servidor.
+
+No implementado/no validado:
+- Empresas y sucursales con aislamiento de datos.
+- Suscripciones, cobros, renovaciones y portal de clientes.
+- Facturación electrónica autorizada, envío a Hacienda, contingencia fiscal
+  y conservación de documentos legales.
+- Política de privacidad, términos de servicio, consentimiento y procesos de
+  derechos de titulares aprobados para el producto.
+- Borradores de política de privacidad, términos de demo y almacenamiento/
+  conexión creados para revisión; responsable legal, datos de contacto,
+  bases/propósitos, retención, derechos y condiciones comerciales siguen
+  pendientes. No constituyen cumplimiento ni asesoría jurídica.
+- Retención automática, gestión de derechos y controles de privacidad para las
+  IP de acceso; la demo conserva el historial local hasta borrarlo manualmente.
+- Dominio público, hosting gestionado, despliegue de alta disponibilidad,
+  copias de seguridad, monitoreo, soporte y acuerdo de nivel de servicio.
+- Pruebas automatizadas, pruebas de carga, auditoría de seguridad o
+  certificaciones de producto.
+- Identidad verificable de cada empleado usando una contraseña compartida;
+  requiere cuentas individuales o MFA para atribución confiable.
+- CRM de interacciones/campañas, gestión de proyectos, tareas y tiempos,
+  recursos humanos, nómina, notificaciones y contabilidad integrada.
+- Conexiones bancarias, pasarelas de pago, automatización de correo/WhatsApp,
+  MFA, bitácora de auditoría completa, copias automáticas en nube,
+  personalización de marca por empresa y multilenguaje/multimoneda.
+- Certificación ISO 27001, cumplimiento GDPR o auditoría/certificación
+  independiente. No se deben afirmar sin implementar controles y obtener las
+  certificaciones o validaciones que correspondan.
+- Registro de LAEL verificado. No anunciar “marca registrada” hasta confirmar
+  registro, alcance, titularidad y uso con la autoridad competente.
+
+ARQUITECTURA OBJETIVO (SaaS)
+1. Plataforma:
+   - Frontend web y API versionada desplegados detrás de un proxy TLS.
+   - API de negocio separada de autenticación, administración y facturación.
+   - PostgreSQL gestionado para datos de producción; migraciones versionadas.
+   - Almacenamiento privado de documentos, cola de tareas, métricas, alertas
+     y copias de seguridad cifradas con restauraciones probadas.
+   - Configuración, credenciales y secretos fuera del repositorio y de la BD.
+
+2. Aislamiento multinegocio:
+   - Entidades organizations, branches y memberships con identificadores
+     estables y relaciones explícitas.
+   - Cada producto, cliente, proveedor, usuario operativo, venta y documento
+     pertenece a un organization_id; los registros de sucursal llevan
+     branch_id cuando corresponda.
+   - El servidor obtiene el negocio activo de una membresía autorizada.
+     Nunca confía en organization_id enviado por el navegador.
+   - Todas las lecturas, escrituras, exportaciones, informes y búsquedas se
+     filtran por el ámbito autorizado. Restricciones compuestas impiden
+     relacionar registros de empresas distintas.
+   - Pruebas negativas de aislamiento para cada endpoint y rol antes de abrir
+     datos de clientes reales. Administradores de LAEL no deben poder leer
+     datos de clientes salvo necesidad definida y divulgada.
+
+3. Acceso y seguridad:
+   - Roles/permisos definidos por organización y sucursal; mínimo privilegio.
+   - Para licenciamiento por dispositivo real, usar una activación revocable
+     con credenciales protegidas y un mecanismo de administración apropiado.
+     Un identificador generado en el navegador se puede borrar/copiar y no
+     demuestra la identidad del hardware.
+   - La clave compartida del prototipo facilita la demo, pero debilita la
+     atribución y revocación por persona. Para producción, usar cuentas
+     individuales; guardar auditoría protegida e inmutable/append-only y
+     autenticar accesos privilegiados con MFA.
+   - Contraseñas con algoritmo moderno de derivación, recuperación segura,
+     revocación de sesiones, MFA para administración y límites de intentos
+     distribuidos.
+   - HTTPS obligatorio, cabeceras revisadas, validación de entrada, límites
+     de tamaño, auditoría de cambios, protección de secretos y dependencias.
+   - Cifrado de respaldos y documentos, política de retención y eliminación.
+   - Registro sin contraseñas, tokens ni datos personales innecesarios.
+   - Revisión externa de amenazas y pruebas de penetración antes del piloto.
+
+4. Suscripciones y planes:
+   - Catálogo de planes versionado con precio, moneda, impuestos, periodicidad,
+     límites y funciones claramente definidos antes de anunciar precios.
+   - Suscripción con estados (prueba, activa, pago pendiente, cancelada,
+     suspendida), fechas y límites aplicados en la API.
+   - Proveedor de pagos externo; tokenizar pagos y no almacenar tarjetas.
+   - Webhooks firmados e idempotentes, recibos, conciliación, cancelación,
+     reembolsos y tratamiento de fallos documentados.
+   - Portal de autoservicio, soporte y mecanismo para exportar los datos al
+     terminar una suscripción. Los planes actuales son solo una propuesta.
+
+5. Facturación electrónica:
+   - Levantar primero los requisitos vigentes de Hacienda y confirmar la
+     elegibilidad, modalidad, pruebas, certificados, ambiente y formatos.
+   - Diseñar un adaptador separado para el servicio autorizado y sus respuestas.
+   - Mantener estados claros: borrador, enviado, autorizado, rechazado,
+     contingencia y anulado, conforme a la normativa confirmada.
+   - Guardar respuesta oficial, identificadores, firma/documento y trazabilidad
+     de modo inmutable; crear procesos de reintento y contingencia.
+   - Separar completamente un recibo interno de prueba de un documento fiscal.
+   - No declarar “facturación electrónica” disponible hasta pasar la
+     certificación/pruebas y autorización aplicables.
+
+6. Módulos avanzados y decisiones de producto:
+   - BI: comenzar con agregaciones verificables y filtros por periodo/empresa;
+     añadir predicción solo tras acordar datos, método, calidad, incertidumbre
+     y validación. La gráfica actual es únicamente historial de siete días.
+   - CRM: definir contactos, consentimiento/base para comunicaciones,
+     oportunidades, historial de interacciones y controles anti-spam.
+   - Proyectos/tareas: definir equipos, asignación, permisos, estados,
+     calendarios y política laboral antes de medir productividad/tiempo.
+   - RR. HH.: tratar expedientes, asistencia, nómina y evaluaciones como datos
+     sensibles de alto impacto; validar legislación laboral y restringir acceso.
+   - Bancos/pagos: integrar proveedores autorizados mediante APIs oficiales;
+     no pedir ni almacenar credenciales bancarias o números de tarjeta.
+   - Monedas/idiomas: definir monedas por empresa, precisión, fuentes y fechas
+     de tipo de cambio; almacenar código de moneda y evitar mezclar totales.
+   - Notificaciones: consentimiento, plantillas, preferencias, trazabilidad,
+     bajas y límites de envío para correo/WhatsApp.
+   - Contabilidad: acordar plan contable/formato por país, exportaciones
+     conciliables y validación con profesionales contables.
+   - Personalización: guardar logo/colores por organización en almacenamiento
+     privado con validación de archivos y tamaño; conservar la marca LAEL.
+   - Asistencia: ayuda contextual basada en documentación revisada. Un
+     asistente con IA requeriría evaluar privacidad, proveedores, respuestas
+     erróneas y divulgación de datos antes de conectar servicios externos.
+
+DATOS, LEYES Y PUBLICACIÓN
+Antes de recopilar datos reales:
+- Solicitar asesoría legal local para confirmar leyes vigentes, reglamentos,
+  reformas y el alcance aplicable de protección de datos, comercio electrónico,
+  protección al consumidor, derechos de autor y propiedad intelectual.
+- Aclarar quién es responsable/encargado de datos, finalidades, base legal,
+  minimización, conservación, proveedores, transferencias y seguridad.
+- Preparar aviso de privacidad, términos, política de cookies si corresponde,
+  contrato de servicio, política de cancelación/reembolsos, soporte y proceso
+  de incidentes; revisión y aprobación profesional obligatorias.
+- Revisar obligaciones fiscales, facturación, precios con impuestos y
+  requisitos para vender suscripciones.
+- Verificar el nombre LAEL, posibles marcas similares, dominio disponible,
+  titularidad, clases y registro antes de invertir en comercialización.
+- Confirmar titularidad/licencias de fuentes, diseño, dependencias y material.
+
+FASES Y CRITERIOS DE SALIDA
+Fase 0 — Definir producto (bloqueante):
+   Confirmar mercado y tamaño de clientes, países, moneda, roles, modelo de
+   soporte, retención, presupuesto, precios y alcance del piloto. Nombrar a
+   asesores técnicos, legales y fiscales.
+
+Fase 1 — Base de producción:
+   Elegir stack/hosting, identidad y acceso, base de datos, migraciones,
+   observabilidad y recuperación. Criterio: despliegue reproducible, secretos
+   externos, TLS obligatorio y restauración de respaldos ensayada.
+
+Fase 2 — Multiempresa:
+   Migrar prototipo como empresa DEMO aislada; implementar organizaciones,
+   sucursales, membresías, permisos y filtros de tenant en todos los recursos.
+   Criterio: pruebas automatizadas de aislamiento y revisión independiente.
+
+Fase 3 — Producto básico estable:
+   Validaciones, auditoría, reportes completos, exportación y pruebas de
+   usabilidad/accesibilidad. Criterio: suite automatizada, carga objetivo
+   definida y defectos críticos cerrados.
+
+Fase 3B — Módulos avanzados (priorizar con clientes piloto):
+   BI histórico y CRM primero; luego proyectos/tareas, multimoneda/idiomas,
+   notificaciones y conectores contables. Pagos/bancos y RR. HH. requieren
+   decisiones legales, proveedores, permisos y controles específicos.
+   Criterio: alcance, responsable del dato, seguridad, consentimiento,
+   integraciones y pruebas definidos para cada módulo antes de implementarlo.
+
+Fase 4 — Legal/fiscal y datos:
+   Requisitos confirmados, documentos revisados, integración fiscal en ambiente
+   de pruebas y autorización oficial cuando aplique. Criterio: aprobación y
+   evidencias documentadas; sin afirmaciones comerciales antes de ello.
+
+Fase 5 — Comercialización:
+   Planes y precios aprobados, pago recurrente, portal, dominio, soporte,
+   monitoreo, SLA, incidentes y proceso de bajas/datos. Criterio: piloto
+   controlado, soporte operativo y checklist de lanzamiento firmado.
+
+CONTROLES Y SERVICIO CONTINUO
+- MFA para cuentas privilegiadas; auditoría append-only con retención, acceso
+  controlado y protección de secretos.
+- Backups automáticos cifrados fuera del entorno primario; probar restauración,
+  retención, RPO/RTO y respuesta ante pérdida/incidente.
+- ISO 27001 es un sistema de gestión y un proceso de certificación, no un
+  atributo que se obtiene por añadir una pantalla. GDPR depende del alcance
+  y de personas/datos tratados; confirmar con asesoría y documentar medidas.
+- Soporte 24/7, tiempos de respuesta y disponibilidad son compromisos
+  operativos: definir dotación, canales, SLA, cobertura, escalamiento y costo
+  antes de anunciarlos. Actualizaciones requieren pruebas, despliegue gradual,
+  notas de versión y procedimiento de reversión.
+
+GESTIÓN DE CUPOS EN LA DEMO LOCAL
+El administrador del prototipo puede ampliar el límite de perfiles o revocar
+un equipo desde Usuarios y acceso. El límite 40 es global a la instalación,
+incluye equipos administradores y solo se aplica a perfiles de navegador
+registrados en esa base local. Para usar 40 computadoras, debe existir un único
+servidor accesible por la red; no se deben iniciar 40 copias independientes.
+No exponga el servidor Python de demostración en Internet. Para operación de
+red real, implementar el despliegue de producción/TLS, respaldos y controles
+de acceso antes de conectar equipos externos.
+
+RIESGO DE PUBLICAR EL SERVIDOR ACTUAL
+El servidor actual es para desarrollo local y por defecto se enlaza a
+127.0.0.1. Usa cuentas de demo conocidas, sesiones solo en memoria y SQLite;
+HTTPS depende de certificados locales opcionales. No lo exponga a Internet,
+no cambie HOST a una IP pública y no ingrese datos reales. Esas opciones no lo
+convierten en un servicio de producción.
+
+LAEL · Sistema Empresarial · Documento de trabajo

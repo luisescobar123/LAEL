@@ -1,0 +1,9 @@
+@echo off
+cd /d "%~dp0"
+set "HOST=0.0.0.0"
+if exist "..\.venv\Scripts\python.exe" (
+    "..\.venv\Scripts\python.exe" server.py
+) else (
+    python server.py
+)
+if errorlevel 1 pause

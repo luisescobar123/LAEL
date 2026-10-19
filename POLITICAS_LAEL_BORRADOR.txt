@@ -1,0 +1,227 @@
+LAEL | BORRADOR DE POLITICAS PARA EL PROTOTIPO
+Propiedad indicada: Luis Angel Escobar Leiva
+Version: borrador de prueba, no aprobado para uso comercial
+Fecha de preparacion: 15 de octubre de 2026
+
+AVISO IMPORTANTE
+Este documento es una plantilla de trabajo para revisar con un profesional
+del derecho en El Salvador. No es asesoramiento juridico, no acredita
+cumplimiento, no es una certificacion y no sustituye el texto vigente de las
+leyes, reglamentos, resoluciones ni instrucciones de las autoridades.
+No usar esta demo para datos reales ni ofrecerla al publico como servicio.
+
+DATOS QUE DEBEN COMPLETARSE ANTES DE PUBLICAR
+- Responsable/proveedor legal y su calidad (persona natural o entidad):
+  [PENDIENTE]
+- Nombre legal, NIT y domicilio para notificaciones:
+  [PENDIENTE]
+- Correo para privacidad, derechos y reclamos:
+  [PENDIENTE]
+- Telefono/canal de soporte y horarios:
+  [PENDIENTE]
+- Responsable de atender solicitudes e incidentes:
+  [PENDIENTE]
+- Fecha de entrada en vigor y version aprobada:
+  [PENDIENTE]
+- Plazo de conservacion para cada categoria de datos:
+  [PENDIENTE]
+
+1. AVISO Y POLITICA DE PRIVACIDAD / DATOS PERSONALES
+
+1.1 Responsable
+El responsable del tratamiento y sus datos legales deben confirmarse antes de
+usar o publicar este aviso. La atribucion de propiedad mostrada por el prototipo
+no reemplaza identificar al responsable juridico. Completar:
+[NOMBRE LEGAL O ENTIDAD], [NIT], [DOMICILIO], [CORREO DE PRIVACIDAD] y
+[CANAL DE SOLICITUDES].
+
+1.2 A quien aplica y a que sistema
+Este borrador describe la demo local LAEL, compuesta por una pagina web, una
+API Python y una base SQLite en el equipo que ejecuta el servidor. El texto
+debe reescribirse si el sistema se aloja en la nube, se ofrece a empresas,
+integra proveedores, procesa datos de clientes o cambia su arquitectura.
+
+1.3 Datos que el prototipo puede tratar
+- Acceso: usuario de la cuenta base y rol; nombre de empleado autodeclarado.
+- Seguridad y dispositivos: direccion IP que observa directamente el servidor,
+  marca de tiempo local del acceso exitoso, etiqueta del dispositivo e
+  identificador aleatorio/seudonimo del perfil del navegador.
+- Sesion y preferencias: token temporal de sesion, hora de inicio, ultima
+  actividad, hora de cierre o expiracion, duracion aproximada y motivo de fin;
+  preferencia de tema y estado local de la aplicacion.
+- Datos de prueba introducidos en modulos: productos, existencias, clientes,
+  proveedores y ventas/comprobantes demostrativos.
+No se debe ingresar informacion real, confidencial, financiera, tributaria,
+laboral, de salud, de menores ni datos personales de terceros. El nombre de
+empleado es autodeclarado y no verifica identidad. La IP no es GPS y no prueba
+que la persona este fisicamente en el local.
+
+1.4 Finalidades y fundamento
+En esta demo, los datos tecnicos y de acceso se usan para autenticar sesiones,
+aplicar controles de cupo y rangos IP, mostrar la actividad reciente del
+personal y administrar el prototipo. El administrador puede consultar y
+descargar informes PDF individuales por nombre declarado o un informe general.
+Los registros operativos sirven unicamente para probar las pantallas.
+Antes de produccion, el responsable debe determinar y documentar para cada
+finalidad la base juridica que corresponda bajo la normativa salvadorena
+vigente; este borrador no presume que el consentimiento sea siempre la base
+correcta ni que esta demo ya cumpla una obligacion legal.
+
+1.5 Almacenamiento, acceso y destinatarios
+En la configuracion actual, los registros de negocio y el historial se guardan
+en un archivo SQLite en el equipo servidor. Los datos de tema e identificador
+de navegador se guardan en el almacenamiento local del navegador; el token de
+autenticacion y el tiempo de sesion se guardan en el almacenamiento de sesion.
+La sesion en memoria del servidor expira por inactividad, pero esto no borra los
+registros de acceso o datos de SQLite.
+La demo no incorpora envio intencional a analitica, publicidad, correo,
+WhatsApp, bancos ni proveedores de pago. El acceso al ordenador servidor y a
+la base debe restringirse a personas autorizadas. Si se anade hosting, soporte
+remoto, copias de seguridad, correo u otro proveedor, identificarlo, explicar
+su funcion, contrato, ubicacion y transferencias antes de activarlo.
+
+1.6 Conservacion y eliminacion
+La demo no tiene borrado automatico ni plazo configurado para el historial de
+acceso, sesiones, IP o registros operativos; permanecen en SQLite hasta que
+alguien con acceso al equipo los elimine o se retire la base. Esto no es una
+politica adecuada para produccion. Antes del lanzamiento, definir plazos justificados
+por categoria y finalidad, proceso de eliminacion segura, copias y excepciones
+de conservacion obligatoria, y verificar que se ejecuten tecnicamente.
+
+1.7 Derechos y solicitudes
+El responsable debe publicar un canal efectivo y un procedimiento para recibir,
+verificar, atender y documentar los derechos reconocidos por la legislacion
+aplicable. Contacto propuesto: [CORREO DE PRIVACIDAD PENDIENTE]. No enviar
+documentos de identidad por correo sin instrucciones seguras. El plazo, las
+excepciones y el metodo de verificacion deben validarse con asesor legal antes
+de anunciarse. En esta demo no existe flujo automatizado de solicitudes.
+
+1.8 Seguridad e incidentes
+El prototipo implementa controles limitados de acceso, hash de contrasena de
+empleados y registro local. No ofrece cifrado completo de la base, respaldo
+gestionado, monitoreo, respuesta a incidentes ni seguridad empresarial.
+No transmitir contrasenas por canales publicos. Antes de produccion, definir
+responsables, controles tecnicos y organizativos, gestion de incidentes,
+notificacion cuando corresponda, continuidad y pruebas de restauracion.
+
+1.9 Redes, IP y presencia en el local
+La IP se obtiene de la conexion TCP recibida por el servidor. La demo no confia
+en encabezados X-Forwarded-For o similares. Detras de un proxy puede registrar
+la IP del proxy; NAT, VPN, redes moviles y redes compartidas pueden hacer que
+varias personas compartan una IP. La lista de redes IP/CIDR restringe origenes
+de conexion, no identifica a una persona ni acredita ubicacion fisica. No se
+realiza seguimiento GPS. El uso laboral del registro debe informarse y
+justificarse, y sus periodos de conservacion y acceso deben definirse. La
+pantalla administrativa marca en linea a una sesion con actividad reciente;
+la duracion se calcula entre inicio y salida/caducidad y puede ser aproximada
+si se cierra el navegador o se interrumpe la conexion. Un nombre de empleado
+es autodeclarado, no verificado. Los informes PDF solo deben compartirse con
+personas autorizadas.
+
+1.10 Cambios y contacto
+La fecha, version y cambios de este aviso se deben registrar al aprobarlo.
+Contacto general y privacidad: [CORREO Y DOMICILIO PENDIENTES].
+
+2. TERMINOS Y CONDICIONES DE USO DE LA DEMO
+
+2.1 Estado del producto
+LAEL es un prototipo de prueba local. Esta version no presenta una oferta
+comercial, no habilita suscripciones ni pagos, no promete disponibilidad,
+soporte, actualizaciones, recuperacion de informacion ni aptitud para un fin
+empresarial. Los planes que aparecen en la presentacion son propuestas sin
+precio ni contratacion.
+
+2.2 Uso permitido y responsabilidad del usuario
+Usar solo para evaluacion de funciones ficticias. No introducir datos reales,
+confidenciales o de terceros. Mantener las credenciales en privado, cerrar la
+sesion al terminar y operar solo con autorizacion. No intentar evadir limites,
+acceder sin permiso, interrumpir el servidor ni cargar codigo malicioso.
+El administrador debe proteger el equipo servidor, la base, los rangos IP y
+las cuentas de prueba.
+
+2.3 Datos y continuidad
+La base se almacena localmente y puede perderse, corromperse o quedar expuesta
+si el ordenador o su almacenamiento no estan protegidos. No hay copias
+administradas ni restauracion garantizada. Cada usuario debe tratar todo
+registro como descartable y no utilizar la demo para llevar operaciones reales.
+
+2.4 Comprobantes y obligaciones fiscales
+Las ventas y comprobantes son exclusivamente demostrativos. No son documentos
+tributarios electronicos, factura fiscal ni constancia autorizada por el
+Ministerio de Hacienda. No sustituyen la facturacion exigida por la normativa.
+No se anuncia que LAEL este autorizado para emitir documentos fiscales.
+
+2.5 Propiedad intelectual y marca
+Los derechos sobre el codigo, textos, disenos, signos y materiales pertenecen
+a sus titulares segun corresponda y deben documentarse. El nombre LAEL se
+muestra como marca, pero su registro y alcance deben verificarse ante la
+autoridad competente; este texto no afirma que sea una marca registrada.
+No se concede licencia comercial por el solo acceso a la demo.
+
+2.6 Limitaciones legales
+Este aviso describe el estado tecnico actual y no pretende excluir derechos
+irrenunciables, responsabilidad no limitable o protecciones que reconozca la
+legislacion aplicable. Cualquier clausula final sobre garantias, responsabilidad,
+reclamaciones o jurisdiccion requiere revision legal y no puede contradecir
+normas imperativas de proteccion al consumidor.
+
+2.7 Servicio futuro
+Antes de vender o habilitar un servicio, publicar identidad legal del proveedor,
+domicilio y canales de contacto, caracteristicas y limites, precio total e
+impuestos, medios de pago, periodo, renovacion, cancelacion, reembolsos,
+soporte, disponibilidad, tratamiento de reclamos, privacidad, seguridad y
+reglas de terminacion/exportacion de datos, en la medida exigida por la ley.
+Nada en esta demo constituye una suscripcion o contrato pagado.
+
+Contacto: [NOMBRE LEGAL, DOMICILIO, TELEFONO Y CORREO PENDIENTES].
+Fecha de vigencia: [PENDIENTE DE APROBACION].
+
+3. AVISO DE ALMACENAMIENTO DEL NAVEGADOR Y CONTROL DE ACCESO
+
+La demo emplea almacenamiento local del navegador para guardar un identificador
+aleatorio del perfil de navegador y la preferencia visual. Usa almacenamiento
+de sesion para el token de inicio y el contador de uso. El servidor mantiene
+sesiones temporales en memoria y registra los accesos correctos con fecha/hora,
+IP observada, etiqueta del equipo y nombre declarado. No es rastreo GPS ni una
+prueba de identidad. Borrar los datos del navegador puede crear otro perfil.
+El historial guardado en SQLite no expira automaticamente.
+
+4. MARCO NORMATIVO SALVADORENO QUE DEBE REVISARSE
+
+Validar con abogado salvadoreno los textos vigentes, reformas, reglamentos,
+entrada en vigor y aplicabilidad al modelo concreto. Entre las materias a
+examinar se encuentran:
+- Ley de Proteccion al Consumidor y normativa complementaria.
+- Ley de Comercio Electronico y normativa complementaria.
+- Ley para la Proteccion de Datos Personales y normativa complementaria
+  vigente a la fecha de lanzamiento.
+- Ley de Firma Electronica, si el producto o sus integraciones la requieren.
+- Codigo Tributario y normativa/instrucciones vigentes de Documentos
+  Tributarios Electronicos administradas por el Ministerio de Hacienda.
+- Legislacion de propiedad intelectual, derechos de autor y marcas.
+- Reglas civiles, mercantiles, laborales, fiscales y sectoriales aplicables
+  al proveedor, clientes, forma de contratacion y datos tratados.
+Esta enumeracion es orientativa y no exhaustiva. No representa una opinion
+legal ni una declaracion de cumplimiento.
+
+Fuentes oficiales para consultar versiones y tramites:
+Asamblea Legislativa: https://www.asamblea.gob.sv/
+Diario Oficial: https://www.diariooficial.gob.sv/
+Defensoria del Consumidor: https://www.defensoria.gob.sv/
+Ministerio de Hacienda: https://www.mh.gob.sv/
+Centro Nacional de Registros: https://www.cnr.gob.sv/
+
+LISTA DE APROBACION ANTES DE PRODUCCION
+[ ] Completar identidad legal, NIT, domicilio y correos de contacto.
+[ ] Confirmar texto consolidado y vigencia de cada norma aplicable.
+[ ] Definir finalidades y base juridica para cada tratamiento de datos.
+[ ] Definir derechos, verificacion, canal y plazos de respuesta.
+[ ] Definir plazos y automatizacion de retencion y eliminacion, incluidos logs.
+[ ] Informar y justificar monitoreo IP de empleados, con revision laboral/
+    privacidad segun corresponda; no presentarlo como GPS.
+[ ] Documentar hosting, proveedores, ubicacion, accesos y transferencias.
+[ ] Definir seguridad, respuesta a incidentes, backups y recuperacion.
+[ ] Publicar informacion de precio, contratacion, renovacion/cancelacion,
+    soporte, reclamos y alcance antes de cobrar.
+[ ] Revisar toda clausula con abogado de El Salvador y obtener aprobacion escrita.
+[ ] Retirar todas las etiquetas de borrador solo tras revision y aprobacion.
